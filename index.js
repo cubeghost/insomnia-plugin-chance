@@ -1,49 +1,130 @@
-const Chance = require('chance');
-const chance = new Chance();
+const faker = require('faker');
+const { LOCALES, ARG_LOCALES } = require('./locales');
 
 module.exports.templateTags = [
   {
-    name: 'chance',
-    displayName: 'Chance',
-    description: 'Generates a random value based on Chance.JS',
+    name: 'fakerTemplate',
+    displayName: 'Faker: Template',
+    description: 'Generate a value using a Faker.js template',
+    args: [
+      {
+        displayName: 'Template',
+        type: 'string',
+        description: 'A template string to be passed into Faker.fake() (see https://github.com/marak/Faker.js/#fakerfake)',
+        placeholder: '{{name.firstName}} {{name.lastName}}',
+      },
+      {
+        displayName: 'Localization',
+        defaultValue: 'en_US',
+        type: 'enum',
+        options: LOCALES,
+      },
+    ],
+    run: (context, template, locale) => {
+      faker.locale = locale;
+      return faker.fake(template);
+    }
+  },
+  {
+    name: 'fakerName',
+    displayName: 'Faker: Name',
+    description: 'Generate a name using Faker.js',
+    args: [
+      {
+        displayName: 'Type',
+        defaultValue: 'findName',
+        type: 'enum',
+        options: [
+          { displayName: 'First Name', value: 'firstName' },
+          { displayName: 'Last Name', value: 'lastName' },
+          { displayName: 'Full Name', value: 'findName' },
+          { displayName: 'Job Title', value: 'jobTitle' },
+          { displayName: 'Prefix', value: 'prefix' },
+          { displayName: 'Suffix', value: 'suffix' },
+          { displayName: 'Title', value: 'title' },
+          { displayName: 'Job Descriptor', value: 'jobDescriptor' },
+          { displayName: 'Job Area', value: 'jobArea' },
+          { displayName: 'Job Type', value: 'jobType' },
+        ],
+      },
+      ARG_LOCALES
+    ],
+    run: (context, method, locale) => {
+      faker.locale = locale;
+      return faker.name[method]();
+    }
+  },
+  {
+    name: 'fakerInternet',
+    displayName: 'Faker: Internet',
+    description: 'Generate an internet-related string using Faker.js',
     args: [
       {
         displayName: 'Type',
         defaultValue: 'email',
         type: 'enum',
         options: [
-          { displayName: 'Natural', value: 'natural' },
-          { displayName: 'Float', value: 'floating' },
-          { displayName: 'Dice (d6)', value: 'd6' },
-          { displayName: 'Dice (d20)', value: 'd20' },
-          { displayName: 'Name', value: 'name' },
+          { displayName: 'Avatar', value: 'avatar' },
           { displayName: 'Email', value: 'email' },
-          { displayName: 'Gender', value: 'gender' },
-          { displayName: 'Phone', value: 'phone' },
-          { displayName: 'Zipcode', value: 'zip' },
-          { displayName: 'Credit Card', value: 'cc' },
-          { displayName: 'Date', value: 'date' },
-          { displayName: 'Word', value: 'word' },
-          { displayName: 'CPF', value: 'cpf' },
-          { displayName: 'Custom', value: 'custom' },
+          { displayName: 'Example Email', value: 'exampleEmail' },
+          { displayName: 'Username', value: 'userName' },
+          { displayName: 'Protocol', value: 'protocol' },
+          { displayName: 'URL', value: 'url' },
+          { displayName: 'Domain Name', value: 'domainName' },
+          { displayName: 'Domain Suffix', value: 'domainSuffix' },
+          { displayName: 'Domain Word', value: 'domainWord' },
+          { displayName: 'IP', value: 'ip' },
+          { displayName: 'IPv6', value: 'ipv6' },
+          { displayName: 'User Agent', value: 'userAgent' },
+          { displayName: 'Hex Color', value: 'color' },
+          { displayName: 'Mac Address', value: 'mac' },
+          { displayName: 'Password', value: 'password' },
+        ],
+      },
+      ARG_LOCALES
+    ],
+    run: (context, method, locale) => {
+      faker.locale = locale;
+      return faker.internet[method]();
+    }
+  },
+  {
+    name: 'fakerDate',
+    displayName: 'Faker: Date',
+    description: 'Generate a date using Faker.js',
+    args: [
+      {
+        displayName: 'Type',
+        defaultValue: 'recent',
+        type: 'enum',
+        options: [
+          { displayName: 'Past', value: 'past' },
+          { displayName: 'Future', value: 'future' },
+          { displayName: 'Between', value: 'between' },
+          { displayName: 'Recent', value: 'recent' },
+          { displayName: 'Soon', value: 'soon' },
+          { displayName: 'Month', value: 'month' },
+          { displayName: 'Weekday', value: 'weekday' },
         ],
       },
       {
-        displayName: 'Custom Function - Only if selected type is Custom',
+        displayName: 'Arguments',
+        description: 'Comma-separated arguments for date functions',
         type: 'string',
-        placeholder: 'integer',
+        placeholder: '2000-01-01,2004-12-31',
       },
-      {
-        displayName: 'Options - Stringified arguments for chosen function',
-        type: 'string',
-        placeholder: '"min": 10, "max": 25',
-      },
+      ARG_LOCALES
     ],
-    async run(context, type, func, opt = '') {
-      const customFunction = type === 'custom' ? func : type;
-      const options = JSON.parse(`{${opt}}`)
+    run: (context, method, args, locale) => {
+      faker.locale = locale;
 
-      return chance[customFunction](options);
+      let date = faker.date[method](...args.split(','));
+
+      if (date instanceof Date) {
+        return date.toISOString();
+      } else {
+        return date;
+      }
     }
   },
 ];

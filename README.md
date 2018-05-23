@@ -1,11 +1,11 @@
-# Insomnia Plugin - Chance
-## Random Value Generator
+# Insomnia Plugin: Faker
+## (another) random value generator
 
-Generates a random value from on [Chance.JS](http://chancejs.com/)
+Generates a random value using [Faker.js](https://github.com/Marak/faker.js)
 
 ### Instalation:
 - Open Insomnia options (Ctrl + , | Cmd + ,)
-- Write `insomnia-plugin-chance` on the **Plugins** tab
+- Write `insomnia-plugin-faker` on the **Plugins** tab
 
 ### Args:
 - Type: Select a function from Chance to be executed

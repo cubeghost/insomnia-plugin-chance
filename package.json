@@ -1,28 +1,28 @@
 {
-  "name": "insomnia-plugin-chance",
-  "version": "1.1.1",
-  "author": "Luca Pasquale (https://github.com/lucapasquale)",
-  "homepage": "https://github.com/lucapasquale/insomnia-plugin-chance",
+  "name": "insomnia-plugin-faker",
+  "version": "1.0.0",
+  "author": "Alex Baldwin (https://github.com/cubeghost)",
+  "homepage": "https://github.com/cubeghost/insomnia-plugin-faker",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/lucapasquale/insomnia-plugin-chance.git"
+    "url": "https://github.com/cubeghost/insomnia-plugin-faker.git"
   },
   "keywords": [
     "insomnia",
     "insomnia-plugin",
-    "chance",
+    "faker",
     "random",
     "random-generation"
   ],
   "bugs": {
-    "url": "https://github.com/lucapasquale/insomnia-plugin-chance/issues"
+    "url": "https://github.com/cubeghost/insomnia-plugin-faker/issues"
   },
   "insomnia": {
-    "name": "chance",
-    "description": "Generate a random value"
+    "name": "faker",
+    "description": "Generate a random value using Faker.js"
   },
   "dependencies": {
-    "chance": "^1.0.13"
+    "faker": "^4.1.0"
   }
 }
