@@ -23,6 +23,13 @@
     "description": "Generate a random value using Faker.js"
   },
   "dependencies": {
-    "faker": "^4.1.0"
+    "faker": "^4.1.0",
+    "tiny-coerce": "^1.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1"
+  },
+  "eslintConfig": {
+    "extends": "./eslint.js"
   }
 }
