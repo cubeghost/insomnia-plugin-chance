@@ -1,5 +1,5 @@
 const faker = require('faker');
-const coerce = require('tiny-coerce');
+const parseArguments = require('./arguments');
 const { ARG_LOCALES } = require('./locales');
 
 module.exports = {
@@ -39,6 +39,6 @@ module.exports = {
   ],
   run: (context, method, args, locale) => {
     faker.locale = locale;
-    return faker.internet[method](...args.split(',').map(coerce));
+    return faker.internet[method](...parseArguments(args));
   }
 };

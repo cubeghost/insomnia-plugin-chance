@@ -1,5 +1,5 @@
 const faker = require('faker');
-const coerce = require('tiny-coerce');
+const parseArguments = require('./arguments');
 const { ARG_LOCALES } = require('./locales');
 
 module.exports = {
@@ -32,7 +32,7 @@ module.exports = {
   run: (context, method, args, locale) => {
     faker.locale = locale;
 
-    const date = faker.date[method](...args.split(',').map(coerce));
+    const date = faker.date[method](...parseArguments(args));
 
     if (date instanceof Date) {
       return date.toISOString();

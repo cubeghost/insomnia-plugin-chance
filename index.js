@@ -4,6 +4,8 @@ const fakerInternet = require('./src/internet');
 const fakerDate = require('./src/date');
 const fakerAddress = require('./src/address');
 const fakerFinance = require('./src/finance');
+const fakerPhone = require('./src/phone');
+const fakerLorem = require('./src/lorem');
 
 module.exports.templateTags = [
   fakerTemplate,
@@ -12,4 +14,6 @@ module.exports.templateTags = [
   fakerDate,
   fakerAddress,
   fakerFinance,
+  fakerPhone,
+  fakerLorem,
 ];
